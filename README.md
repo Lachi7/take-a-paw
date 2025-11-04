@@ -4,6 +4,10 @@ A modern, Tinder-style pet adoption web application that helps users find their 
 
 ![Take A Paw](https://img.shields.io/badge/Flask-2.3.3-green) ![Python](https://img.shields.io/badge/Python-3.12-blue) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-orange) ![Docker](https://img.shields.io/badge/Docker-Enabled-blue) ![CI/CD](https://img.shields.io/badge/CI/CD-GitHub%20Actions-yellow)
 
+## Live Application:
+-[https://take-a-paw-1.onrender.com/](https://take-a-paw-1.onrender.com/)
+
+
 ## ✨ Features
 
 ### 🎯 Core Functionality
