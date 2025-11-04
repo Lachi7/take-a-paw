@@ -36,7 +36,7 @@ jobs:
         context: .
         push: true
         tags: |
-          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          ${{ env.REGISTRY }}/lachi7/take-a-paw:latest
+          ${{ env.REGISTRY }}/lachi7/take-a-paw:${{ github.sha }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
