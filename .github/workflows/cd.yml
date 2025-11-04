@@ -4,15 +4,17 @@ on:
   push:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
     
-    # FIX: Add proper permissions
     permissions:
       contents: read
       packages: write
-      attestations: write
       id-token: write
 
     steps:
@@ -36,7 +38,7 @@ jobs:
         push: true
         tags: |
           ghcr.io/lachi7/take-a-paw:latest
-          ghcr.io/lachi7/take-a-paw:${{ github.sha }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        provenance: false  # Disable provenance for now
+        provenance: false
+        sbom: false
