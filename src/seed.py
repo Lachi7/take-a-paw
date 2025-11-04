@@ -51,7 +51,7 @@ SEED = [
     },
     {
         "name": "Charlie", "species": "Dog", "breed": "French Bulldog", "age": "1 year",
-        "gender": "Male", "location": "City Paws Rescue, San Francisco, CA",
+        "gender": "Female", "location": "City Paws Rescue, San Francisco, CA",
         "description": "Adorable and low-energy companion. Perfect for apartments.",
         "image": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=900&h=600&fit=crop",
         "adopted": False, "source": "catalog", "owner_id": None,

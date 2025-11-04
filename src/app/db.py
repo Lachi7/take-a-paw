@@ -10,7 +10,7 @@ def init_db(app, test_config=None):
     # If test_config is provided, use it (for testing)
     if test_config and 'SQLALCHEMY_DATABASE_URI' in test_config:
         app.config["SQLALCHEMY_DATABASE_URI"] = test_config['SQLALCHEMY_DATABASE_URI']
-        print("🔧 Using test database configuration")
+        print("Using test database configuration")
     else:
         # Get database URL from environment
         database_url = os.getenv("DATABASE_URL")
