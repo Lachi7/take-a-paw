@@ -42,7 +42,7 @@ jobs:
         cd src
         python -m pytest ../tests/ -v --tb=short
       env:
-        DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test_db
+        DATABASE_URL: postgresql://neondb_owner:npg_M68mbtjsZHFq@ep-floral-dust-ad1k1kj2-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
         SECRET_KEY: test-secret-key-for-ci
     
     - name: Test build

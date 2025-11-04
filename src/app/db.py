@@ -7,32 +7,30 @@ db = SQLAlchemy()
 migrate = Migrate()
 
 def init_db(app, test_config=None):
+    # If test_config is provided, use it (for testing)
     if test_config and 'SQLALCHEMY_DATABASE_URI' in test_config:
         app.config["SQLALCHEMY_DATABASE_URI"] = test_config['SQLALCHEMY_DATABASE_URI']
-        print("Using test database configuration")
+        print("🔧 Using test database configuration")
     else:
+        # Get database URL from environment
         database_url = os.getenv("DATABASE_URL")
         
+        # FIX: Safe handling for None database_url
         if database_url:
+            # Clean the URL if needed
             if database_url.startswith('psql '):
                 database_url = database_url[4:].strip()
-            
             database_url = database_url.strip("'\"")
             
-            if 'channel_binding=require' in database_url:
-                database_url = database_url.replace('&channel_binding=require', '')
-                database_url = database_url.replace('?channel_binding=require', '?')
-                if database_url.endswith('?'):
-                    database_url = database_url[:-1]
-        
-        print(f"Using database URL: {database_url[:50]}...")  # Log first 50 chars
-        
-        if not database_url:
-            # Fallback for local development
-            project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+            # Safe logging
+            safe_log = database_url[:50] + "..." if len(database_url) > 50 else database_url
+            print(f"Using database URL: {safe_log}")
+        else:
+            print("No DATABASE_URL found, using SQLite fallback")
+            # Fallback for development/CI
+            project_root = os.path.abspath(os.path.dirname(__file__))
             default_sqlite_path = os.path.join(project_root, "takeapaw.db")
             database_url = f"sqlite:///{default_sqlite_path}"
-            print("⚠️  Using SQLite fallback database")
 
         app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 
@@ -42,8 +40,8 @@ def init_db(app, test_config=None):
         "pool_pre_ping": True,
     }
     
-    if 'sqlalchemy' not in app.extensions:
-        db.init_app(app)
-        migrate.init_app(app, db)
+    # Initialize database
+    db.init_app(app)
+    migrate.init_app(app, db)
     
     return db
