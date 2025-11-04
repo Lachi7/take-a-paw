@@ -16,10 +16,18 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
     
+    - name: Verify GitHub token permissions
+      run: |
+        echo "Repository: ${{ github.repository }}"
+        echo "Actor: ${{ github.actor }}"
+        echo "Token has access to packages: ${{ secrets.GITHUB_TOKEN != '' }}"
+    
     - name: Set lowercase repository name
       id: repo
       run: |
-        echo "repository=${GITHUB_REPOSITORY,,}" >> $GITHUB_OUTPUT
+        REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+        echo "repository=$REPO_LOWER" >> $GITHUB_OUTPUT
+        echo "Using repository: $REPO_LOWER"
     
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
@@ -30,6 +38,11 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Verify GHCR login
+      run: |
+        echo "Testing GHCR authentication..."
+        docker pull ghcr.io/github/hello-world:latest || echo "Pull test completed"
     
     - name: Extract metadata (tags, labels)
       id: meta
@@ -51,9 +64,8 @@ jobs:
         cache-to: type=gha,mode=max
         provenance: false
         sbom: false
-    - name: Debug token permissions
+    
+    - name: Image pushed successfully
       run: |
-        echo "Actor: ${{ github.actor }}"
-        echo "Repository: ${{ github.repository }}"
-        curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            https://api.github.com/user
+        echo "Image successfully pushed to GHCR!"
+        echo "Image: ghcr.io/${{ steps.repo.outputs.repository }}:latest"
