@@ -284,9 +284,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Team
 
-- **Your Name** - Lead Developer
-- **Team Member 2** - Backend Development
-- **Team Member 3** - Frontend Development
+- **Fidan Alizada**
+- **Nazrin Aliyeva**
+- **Shahin Alakparov** 
 
 ## 🙏 Acknowledgments
 
